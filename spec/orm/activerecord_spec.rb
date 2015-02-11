@@ -30,5 +30,11 @@ RSpec.describe Carrierwave::Base64::ActiveRecord do
       subject.reload
       expect(subject.image.current_path).to eq file_path("../uploads", "image.jpg")
     end
+    it "should work with base64 file uploads with newlines" do
+      subject.image = File.read(file_path("fixtures", "base64_image.fixture"))
+      subject.save!
+      subject.reload
+      expect(subject.image.current_path).to eq file_path("../uploads", "image.jpg")
+    end
   end
 end

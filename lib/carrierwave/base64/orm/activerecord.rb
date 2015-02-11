@@ -7,7 +7,8 @@ module Carrierwave
         mount_uploader attribute, uploader_class
 
         define_method "#{attribute}=" do |data|
-          if data.present? && data.end_with?("==")
+          if data.present?
+            data.strip! # Remove newline from end of string
             super(Carrierwave::Base64::Base64StringIO.new(data)) if data.end_with?("==")
           else
             super(data)
