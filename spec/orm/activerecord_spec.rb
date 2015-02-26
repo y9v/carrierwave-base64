@@ -15,7 +15,7 @@ RSpec.describe Carrierwave::Base64::ActiveRecord do
       expect(subject.image).to be_an_instance_of(uploader)
     end
 
-    it "should work with normal file uploads" do
+    it "handles normal file uploads" do
       sham_rack_app = ShamRack.at('www.example.com').stub
       sham_rack_app.register_resource("/test.jpg", file_path("fixtures", "test.jpg"), "images/jpg")
       subject[:image] = "test.jpg"
@@ -24,15 +24,8 @@ RSpec.describe Carrierwave::Base64::ActiveRecord do
       expect(subject.image.current_path).to eq file_path("../uploads", "test.jpg")
     end
 
-    it "should work with base64 file uploads" do
+    it "handles data-urls" do
       subject.image = File.read(file_path("fixtures", "base64_image.fixture")).strip
-      subject.save!
-      subject.reload
-      expect(subject.image.current_path).to eq file_path("../uploads", "image.jpg")
-    end
-
-    it "should work with base64 file uploads with trailing newline" do
-      subject.image = File.read(file_path("fixtures", "base64_image.fixture"))
       subject.save!
       subject.reload
       expect(subject.image.current_path).to eq file_path("../uploads", "image.jpg")
