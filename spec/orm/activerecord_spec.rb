@@ -28,7 +28,7 @@ RSpec.describe Carrierwave::Base64::ActiveRecord do
       subject.image = File.read(file_path("fixtures", "base64_image.fixture")).strip
       subject.save!
       subject.reload
-      expect(subject.image.current_path).to eq file_path("../uploads", "image.jpg")
+      expect(subject.image.current_path).to eq file_path("../uploads", "file.jpg")
     end
   end
 end
