@@ -3,27 +3,27 @@ module Carrierwave
     class Base64StringIO < StringIO
       class ArgumentError < StandardError; end
 
-      attr_accessor :image_format
+      attr_accessor :file_format
 
-      def initialize(encoded_image)
-        description, encoded_bytes = encoded_image.split(",")
+      def initialize(encoded_file)
+        description, encoded_bytes = encoded_file.split(",")
 
         raise ArgumentError unless encoded_bytes
 
-        @image_format = get_image_format description
+        @file_format = get_file_format description
         bytes = ::Base64.decode64 encoded_bytes
 
         super bytes
       end
 
       def original_filename
-        File.basename("image.#{@image_format}")
+        File.basename("file.#{@file_format}")
       end
 
       private
 
-      def get_image_format(description)
-        regex = /\Adata:image\/([a-z]+);base64\z/i
+      def get_file_format(description)
+        regex = /([a-z]+);base64\z/
         regex.match(description).try(:[], 1)
       end
     end

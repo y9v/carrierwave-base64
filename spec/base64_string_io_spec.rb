@@ -6,11 +6,24 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     subject { described_class.new image_data }
 
     it "determines the image format from the Dara URI scheme" do
-      expect(subject.image_format).to eql("jpg")
+      expect(subject.file_format).to eql("jpg")
     end
 
     it "should respond to :original_filename" do
-      expect(subject.original_filename).to eql("image.jpg")
+      expect(subject.original_filename).to eql("file.jpg")
+    end
+  end
+
+  context "correct pdf data" do
+    let(:image_data) { "data:application/pdf;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
+    subject { described_class.new image_data }
+
+    it "determines the image format from the Dara URI scheme" do
+      expect(subject.file_format).to eql("pdf")
+    end
+
+    it "should respond to :original_filename" do
+      expect(subject.original_filename).to eql("file.pdf")
     end
   end
 
