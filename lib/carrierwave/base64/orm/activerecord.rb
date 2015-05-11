@@ -3,8 +3,8 @@ require "active_record"
 module Carrierwave
   module Base64
     module ActiveRecord
-      def mount_base64_uploader(attribute, uploader_class)
-        mount_uploader attribute, uploader_class
+      def mount_base64_uploader(attribute, uploader_class, options = {})
+        mount_uploader attribute, uploader_class, options
 
         define_method "#{attribute}=" do |data|
           if data.present? && data.is_a?(String) && data.strip.start_with?("data")
