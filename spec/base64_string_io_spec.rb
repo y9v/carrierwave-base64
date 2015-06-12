@@ -27,6 +27,19 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     end
   end
 
+  context "correct mp3 data" do
+    let(:audio_data) { "data:audio/mp3;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
+    subject { described_class.new audio_data }
+
+    it "determines the image format from the Dara URI scheme" do
+      expect(subject.file_format).to eql("mp3")
+    end
+
+    it "should respond to :original_filename" do
+      expect(subject.original_filename).to eql("file.mp3")
+    end
+  end
+
   context "incorrect image data" do
     it "raises an ArgumentError if Data URI scheme format is missing" do
       expect do
