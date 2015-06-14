@@ -23,7 +23,7 @@ module Carrierwave
       private
 
       def get_file_format(description)
-        regex = /([a-z]+);base64\z/
+        regex = /([a-z0-9]+);base64\z/
         regex.match(description).try(:[], 1)
       end
     end
