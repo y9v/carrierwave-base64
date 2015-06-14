@@ -5,7 +5,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     let(:image_data) { "data:image/jpg;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
     subject { described_class.new image_data }
 
-    it "determines the image format from the Dara URI scheme" do
+    it "determines the image format from the Data URI scheme" do
       expect(subject.file_format).to eql("jpg")
     end
 
@@ -18,7 +18,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     let(:image_data) { "data:application/pdf;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
     subject { described_class.new image_data }
 
-    it "determines the image format from the Dara URI scheme" do
+    it "determines the image format from the Data URI scheme" do
       expect(subject.file_format).to eql("pdf")
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     let(:audio_data) { "data:audio/mp3;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
     subject { described_class.new audio_data }
 
-    it "determines the image format from the Dara URI scheme" do
+    it "determines the image format from the Data URI scheme" do
       expect(subject.file_format).to eql("mp3")
     end
 
