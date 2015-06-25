@@ -13,3 +13,6 @@ sudo: false
 
 notifications:
   email: false
+
+services:
+  - mongodb

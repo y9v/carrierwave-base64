@@ -1,10 +1,8 @@
 require "spec_helper"
 
-RSpec.describe Carrierwave::Base64::Mongoid do
+RSpec.describe "carrierwave/base64/orm/mongoid" do
   describe ".mount_base64_uploader" do
-    let(:uploader) do
-      Class.new CarrierWave::Uploader::Base
-    end
+    let(:uploader) { Class.new CarrierWave::Uploader::Base }
 
     subject do
       # mount uploader only first time
