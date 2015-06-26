@@ -6,16 +6,13 @@ require "sham_rack"
 
 require "rails"
 require "active_record"
-require "mongoid"
 
 require "carrierwave"
-require "carrierwave/mongoid"
 require "carrierwave/orm/activerecord"
 
 require "carrierwave/base64"
 
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
-Mongoid.configure { |config| config.connect_to("carrierwave_test") }
 
 load "support/schema.rb"
 require "support/models"

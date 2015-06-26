@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe "carrierwave/base64/orm/activerecord" do
+RSpec.describe Carrierwave::Base64::Adapter do
   describe ".mount_base64_uploader" do
     let(:uploader) { Class.new CarrierWave::Uploader::Base }
 

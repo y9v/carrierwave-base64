@@ -1,6 +1,6 @@
 module Carrierwave
   module Base64
-    module BaseDBAdapter
+    module Adapter
       def mount_base64_uploader(attribute, uploader_class, options = {})
         mount_uploader attribute, uploader_class, options
 
