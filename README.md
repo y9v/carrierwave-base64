@@ -21,9 +21,9 @@ Also add this if you need mongoid support:
 gem "carrierwave-mongoid"
 ```
 
-## ActiveRecord
+## Usage
 
-Mount the uploader:
+Mount the uploader to your model:
 
 ```ruby
 mount_base64_uploader :image, ImageUploader
