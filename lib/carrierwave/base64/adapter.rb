@@ -1,8 +1,6 @@
-require "active_record"
-
 module Carrierwave
   module Base64
-    module ActiveRecord
+    module Adapter
       def mount_base64_uploader(attribute, uploader_class, options = {})
         mount_uploader attribute, uploader_class, options
 
@@ -17,5 +15,3 @@ module Carrierwave
     end
   end
 end
-
-ActiveRecord::Base.extend Carrierwave::Base64::ActiveRecord

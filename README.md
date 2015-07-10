@@ -15,6 +15,12 @@ Add the gem to your Gemfile:
 gem 'carrierwave-base64'
 ```
 
+Also add this if you need mongoid support:
+
+```ruby
+gem "carrierwave-mongoid"
+```
+
 ## ActiveRecord
 
 Mount the uploader:

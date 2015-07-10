@@ -12,8 +12,6 @@ require "carrierwave/orm/activerecord"
 
 require "carrierwave/base64"
 
-ActiveRecord::Base.extend CarrierWave::ActiveRecord
-
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 
 load "support/schema.rb"
