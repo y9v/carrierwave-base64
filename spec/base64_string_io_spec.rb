@@ -47,7 +47,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
 
-    it "raise ArgumentError if nsstring returns nil and base64 data eql (null)" do
+    it "raises ArgumentError if base64 data eql (null)" do
       expect do
         described_class.new("data:image/jpg;base64,(null)")
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
