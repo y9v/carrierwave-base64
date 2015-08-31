@@ -28,5 +28,10 @@ RSpec.describe Carrierwave::Base64::Adapter do
       subject.reload
       expect(subject.image.current_path).to eq file_path("../uploads", "file.jpg")
     end
+
+    it "marks the attribute as changed" do
+      subject.image = File.read(file_path("fixtures", "base64_image.fixture")).strip
+      expect(subject.changed?).to be_truthy
+    end
   end
 end
