@@ -5,9 +5,7 @@ module Carrierwave
         mount_uploader attribute, uploader_class, options
 
         define_method "#{attribute}=" do |data|
-          if data.present? && send("#{attribute}").blank?
-            send "#{attribute}_will_change!"
-          end
+          send "#{attribute}_will_change!" if data.present?
 
           if data.present? && data.is_a?(String) && data.strip.start_with?("data")
             super(Carrierwave::Base64::Base64StringIO.new(data.strip))
