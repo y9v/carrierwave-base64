@@ -17,6 +17,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
       sham_rack_app = ShamRack.at('www.example.com').stub
       sham_rack_app.register_resource("/test.jpg", file_path("fixtures", "test.jpg"), "images/jpg")
       subject[:image] = "test.jpg"
+      expect(subject.changed?).to be_truthy
       subject.save!
       subject.reload
       expect(subject.image.current_path).to eq file_path("../uploads", "test.jpg")
