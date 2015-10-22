@@ -34,5 +34,19 @@ RSpec.describe Carrierwave::Base64::Adapter do
       subject.image = File.read(file_path("fixtures", "base64_image.fixture")).strip
       expect(subject.changed?).to be_truthy
     end
+
+    context "stored uploads exist for the field" do
+      before :each do
+        subject.image = File.read(file_path("fixtures", "base64_image.fixture")).strip
+        subject.save!
+        subject.reload
+      end
+
+      it "removes persisted files when remove_ with the field name attribute is set to true" do
+        subject.remove_image = true
+        subject.save!
+        expect(subject.reload.image.file).to be_nil
+      end
+    end
   end
 end
