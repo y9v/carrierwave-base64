@@ -6,7 +6,7 @@ module Carrierwave
   module Base64
     class Railtie < Rails::Railtie
       ActiveSupport.on_load :active_record do
-        ActiveRecord::Base.extend Carrierwave::Base64::Adapter
+        ActiveRecord::Base.include Carrierwave::Base64::Adapter
       end
 
       ActiveSupport.on_load :mongoid do
