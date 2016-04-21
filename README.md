@@ -7,6 +7,8 @@ Upload files encoded as base64 to carrierwave.
 
 This small gem can be useful for API's that interact with mobile devices.
 
+As of version 2.2.0, this gem requires Ruby 2.0 or higher
+
 ## Installation
 
 Add the gem to your Gemfile:
