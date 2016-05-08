@@ -19,14 +19,13 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "carrierwave", ">= 0.8.0"
+  spec.add_dependency "carrierwave", [">= 0.8.0", "< 0.12.0"]
+
   spec.add_development_dependency "rails", ">= 3.2.0"
-  spec.add_dependency "activerecord",  ">= 3.2.0"
-  spec.add_dependency "activesupport", ">= 3.2.0"
   spec.add_development_dependency "sqlite3"
-  spec.add_development_dependency "bundler"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "bundler", "~> 1.7"
+  spec.add_development_dependency "rake", ["~> 10.0"]
+  spec.add_development_dependency "rspec", ["~> 2.14"]
   spec.add_development_dependency "sham_rack"
   spec.add_development_dependency "pry"
 end
