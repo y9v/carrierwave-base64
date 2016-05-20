@@ -18,7 +18,6 @@ module Carrierwave
         mount_uploaders attribute, uploader_class, options
 
         define_method "#{attribute}=" do |data|
-          send "#{attribute}_will_change!" if data.present?
 
           if data.is_a?(Array)
             base64_data = data
@@ -29,6 +28,7 @@ module Carrierwave
           end
 
           if data.present? && base64_data.all? {|d| d.is_a?(String) and d.strip.start_with?("data")}
+            send "#{attribute}_will_change!" if data.present?
             super(base64_data.map{|d| Carrierwave::Base64::Base64StringIO.new(d.strip)})
           else
             super([data])
