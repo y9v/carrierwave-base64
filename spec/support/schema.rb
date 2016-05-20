@@ -3,6 +3,7 @@ ActiveRecord::Schema.define do
 
   create_table "posts", force: :cascade do |t|
     t.string   "image"
+    t.json     "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -13,6 +13,7 @@ require "carrierwave/orm/activerecord"
 require "carrierwave/base64"
 
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
+#ActiveRecord::Base.establish_connection adapter: "postgresql", database: "carrierwave-base64-test", username: "USERNAME", password: "YOURPASSWD"
 
 load "support/schema.rb"
 require "support/models"
