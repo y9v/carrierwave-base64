@@ -6,10 +6,10 @@ module Carrierwave
       attr_accessor :file_format
 
       def initialize(encoded_file)
-        description, encoded_bytes = encoded_file.split(",")
+        description, encoded_bytes = encoded_file.split(',')
 
         raise ArgumentError unless encoded_bytes
-        raise ArgumentError if encoded_bytes.eql?("(null)")
+        raise ArgumentError if encoded_bytes.eql?('(null)')
 
         @file_format = get_file_format description
         bytes = ::Base64.decode64 encoded_bytes
