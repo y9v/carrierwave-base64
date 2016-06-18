@@ -3,14 +3,15 @@ module Carrierwave
     class Base64StringIO < StringIO
       class ArgumentError < StandardError; end
 
-      attr_accessor :file_format
+      attr_accessor :file_format, :file_name
 
-      def initialize(encoded_file)
+      def initialize(encoded_file, file_name)
         description, encoded_bytes = encoded_file.split(',')
 
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?('(null)')
 
+        @file_name = file_name
         @file_format = get_file_format description
         bytes = ::Base64.decode64 encoded_bytes
 
@@ -18,7 +19,7 @@ module Carrierwave
       end
 
       def original_filename
-        File.basename("file.#{@file_format}")
+        File.basename("#{@file_name}.#{@file_format}")
       end
 
       private

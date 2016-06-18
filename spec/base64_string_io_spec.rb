@@ -7,7 +7,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
 
       let(:file_format) { content_type.split('/').last }
 
-      subject { described_class.new data }
+      subject { described_class.new data, 'file' }
 
       it 'determines the file format from the Data URI content type' do
         expect(subject.file_format).to eql(file_format)
@@ -22,13 +22,13 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
   context 'invalid image data' do
     it 'raises an ArgumentError if Data URI content type is missing' do
       expect do
-        described_class.new('/9j/4AAQSkZJRgABAQEASABIAADKdhH//2Q==')
+        described_class.new('/9j/4AAQSkZJRgABAQEASABIAADKdhH//2Q==', 'file')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
 
     it 'raises ArgumentError if base64 data eql (null)' do
       expect do
-        described_class.new('data:image/jpg;base64,(null)')
+        described_class.new('data:image/jpg;base64,(null)', 'file')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
   end
