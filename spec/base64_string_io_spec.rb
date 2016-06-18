@@ -1,54 +1,26 @@
 RSpec.describe Carrierwave::Base64::Base64StringIO do
-  context 'correct image data' do
-    let(:image_data) do
-      'data:image/jpg;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=='
-    end
+  %w(image/jpg application/pdf audio/mp3).each do |content_type|
+    context "correct #{content_type} data" do
+      let(:data) do
+        "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
+      end
 
-    subject { described_class.new image_data }
+      let(:file_format) { content_type.split('/').last }
 
-    it 'determines the image format from the Data URI scheme' do
-      expect(subject.file_format).to eql('jpg')
-    end
+      subject { described_class.new data }
 
-    it 'should respond to :original_filename' do
-      expect(subject.original_filename).to eql('file.jpg')
-    end
-  end
+      it 'determines the file format from the Data URI content type' do
+        expect(subject.file_format).to eql(file_format)
+      end
 
-  context 'correct pdf data' do
-    let(:image_data) do
-      'data:application/pdf;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=='
-    end
-
-    subject { described_class.new image_data }
-
-    it 'determines the image format from the Data URI scheme' do
-      expect(subject.file_format).to eql('pdf')
-    end
-
-    it 'should respond to :original_filename' do
-      expect(subject.original_filename).to eql('file.pdf')
+      it 'should respond to :original_filename' do
+        expect(subject.original_filename).to eql("file.#{file_format}")
+      end
     end
   end
 
-  context 'correct mp3 data' do
-    let(:audio_data) do
-      'data:audio/mp3;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=='
-    end
-
-    subject { described_class.new audio_data }
-
-    it 'determines the image format from the Data URI scheme' do
-      expect(subject.file_format).to eql('mp3')
-    end
-
-    it 'should respond to :original_filename' do
-      expect(subject.original_filename).to eql('file.mp3')
-    end
-  end
-
-  context 'incorrect image data' do
-    it 'raises an ArgumentError if Data URI scheme format is missing' do
+  context 'invalid image data' do
+    it 'raises an ArgumentError if Data URI content type is missing' do
       expect do
         described_class.new('/9j/4AAQSkZJRgABAQEASABIAADKdhH//2Q==')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)

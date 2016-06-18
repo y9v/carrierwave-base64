@@ -11,36 +11,48 @@ RSpec.describe Carrierwave::Base64::Adapter do
       expect(subject.image).to be_an_instance_of(uploader)
     end
 
-    it 'handles normal file uploads' do
-      sham_rack_app = ShamRack.at('www.example.com').stub
-      sham_rack_app.register_resource(
-        '/test.jpg', file_path('fixtures', 'test.jpg'), 'images/jpg'
-      )
-      subject[:image] = 'test.jpg'
-      expect(subject.changed?).to be_truthy
-      subject.save!
+    context 'normal file uploads' do
+      before(:each) do
+        sham_rack_app = ShamRack.at('www.example.com').stub
+        sham_rack_app.register_resource(
+          '/test.jpg', file_path('fixtures', 'test.jpg'), 'images/jpg'
+        )
+        subject[:image] = 'test.jpg'
+      end
 
-      expect(
-        subject.reload.image.current_path
-      ).to eq file_path('../uploads', 'test.jpg')
+      it 'sets will_change for the attribute' do
+        expect(subject.changed?).to be_truthy
+      end
+
+      it 'saves the file' do
+        subject.save!
+        subject.reload
+
+        expect(
+          subject.image.current_path
+        ).to eq file_path('../uploads', 'test.jpg')
+      end
     end
 
-    it 'handles data-urls' do
-      subject.image = File.read(
-        file_path('fixtures', 'base64_image.fixture')
-      ).strip
-      subject.save!
+    context 'base64 strings' do
+      before(:each) do
+        subject.image = File.read(
+          file_path('fixtures', 'base64_image.fixture')
+        ).strip
+      end
 
-      expect(
-        subject.reload.image.current_path
-      ).to eq file_path('../uploads', 'file.jpg')
-    end
+      it 'creates a file' do
+        subject.save!
+        subject.reload
 
-    it 'marks the attribute as changed' do
-      subject.image = File.read(
-        file_path('fixtures', 'base64_image.fixture')
-      ).strip
-      expect(subject.changed?).to be_truthy
+        expect(
+          subject.image.current_path
+        ).to eq file_path('../uploads', 'file.jpg')
+      end
+
+      it 'sets will_change for the attribute' do
+        expect(subject.changed?).to be_truthy
+      end
     end
 
     context 'stored uploads exist for the field' do
