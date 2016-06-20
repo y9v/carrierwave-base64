@@ -7,8 +7,8 @@ module Carrierwave
         define_method "#{attribute}=" do |data|
           send "#{attribute}_will_change!" if data.present?
 
-          super(data) unless data.is_a?(String) &&
-                             data.strip.start_with?('data')
+          return super(data) unless data.is_a?(String) &&
+                                    data.strip.start_with?('data')
 
           super(Carrierwave::Base64::Base64StringIO.new(
             data.strip, options[:file_name] || 'file'
