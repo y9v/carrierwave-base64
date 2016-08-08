@@ -17,11 +17,8 @@ module Carrierwave
       end
       
       def mount_base64_uploaders(attribute, uploader_class, options = {})
-        mount_uploader attribute, uploader_class, options
-        pp '-----------------------'  
-        pp attribute, uploader_class, options
-        pp '-----------------------'  
-        super
+        mount_uploaders attribute, uploader_class, options
+        
         define_method "#{attribute}=" do |data|
           send "#{attribute}_will_change!" if data.present?
           
