@@ -22,11 +22,11 @@ module Carrierwave
         define_method "#{attribute}=" do |data|
           send "#{attribute}_will_change!" if data.present?
           
-          new_data = data.map do |elem|
+          new_data = data.map.with_index do |elem, index|
             if elem.is_a?(String) && elem.strip.start_with?('data')
               Carrierwave::Base64::Base64StringIO.new(
                 elem.strip,
-                options[:file_name] || 'file'
+                "#{options[:file_name] || 'file'}#{index}"
                 )
             else
               elem
