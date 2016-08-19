@@ -71,4 +71,67 @@ RSpec.describe Carrierwave::Base64::Adapter do
       end
     end
   end
+
+  describe '.mount_base64_uploaders' do
+    let(:uploader) { Class.new CarrierWave::Uploader::Base }
+
+    subject do
+      Email.mount_base64_uploaders(:attachments, uploader)
+      Email.new
+    end
+
+    it 'mounts the uploader on the image field' do
+      expect(subject.attachments).to be_an_instance_of(Array)
+    end
+
+
+    context 'base64 strings with requested file names' do
+      before(:each) do
+        subject.attachments = [
+            [File.read(file_path('fixtures', 'base64_image.fixture')).strip, 'test.jpg'],
+            [File.read(file_path('fixtures', 'base64_image.fixture')).strip, 'another_test.jpg']]
+      end
+
+      it 'creates a file' do
+        subject.save!
+        subject.reload
+        expect(
+            subject.attachments[0].current_path
+        ).to eq file_path('../uploads', 'test.jpg')
+
+        expect(
+            subject.attachments[1].current_path
+        ).to eq file_path('../uploads', 'another_test.jpg')
+      end
+
+      it 'sets will_change for the attribute' do
+        expect(subject.changed?).to be_truthy
+      end
+    end
+
+    context 'base64 strings with requested file names' do
+      before(:each) do
+        subject.attachments = [
+            File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+            File.read(file_path('fixtures', 'base64_image.fixture')).strip
+        ]
+      end
+
+      it 'creates a file' do
+        subject.save!
+        subject.reload
+        expect(
+            subject.attachments[0].current_path
+        ).to eq file_path('../uploads', 'file.jpg')
+
+        expect(
+            subject.attachments[1].current_path
+        ).to eq file_path('../uploads', 'file.jpg')
+      end
+
+      it 'sets will_change for the attribute' do
+        expect(subject.changed?).to be_truthy
+      end
+    end
+  end
 end

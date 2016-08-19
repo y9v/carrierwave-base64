@@ -43,4 +43,16 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
   end
+
+  context 'image data with requested file name' do
+    let(:data) do
+      'data:jpeg;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=='
+    end
+
+    subject { described_class.new data, 'file', 'custom.png' }
+
+    it 'uses the requested file name instead' do
+      expect(subject.original_filename).to eql('custom.png')
+    end
+  end
 end

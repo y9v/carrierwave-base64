@@ -5,12 +5,13 @@ module Carrierwave
 
       attr_accessor :file_format, :file_name
 
-      def initialize(encoded_file, file_name_method_or_string)
+      def initialize(encoded_file, file_name_method_or_string, requested_filename = nil)
         description, encoded_bytes = encoded_file.split(',')
 
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?('(null)')
 
+        @requested_filename = requested_filename
         @file_name = extract_file_name(file_name_method_or_string)
         @file_format = get_file_format description
         bytes = ::Base64.decode64 encoded_bytes
@@ -19,7 +20,7 @@ module Carrierwave
       end
 
       def original_filename
-        File.basename("#{@file_name}.#{@file_format}")
+        @requested_filename || File.basename("#{@file_name}.#{@file_format}")
       end
 
       private
