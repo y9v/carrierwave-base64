@@ -42,6 +42,12 @@ To set the file name for the uploaded files, use the `:file_name` option (withou
 mount_base64_uploader :image, ImageUploader, file_name: 'userpic'
 ```
 
+You can also pass a Proc for the file-name to allow dynamic filenames.
+
+```ruby
+mount_base64_uploader :image, ImageUploader, file_name: -> { "file-#{DateTime.now.to_i}" }
+```
+
 ## Data format
 
 The string with the encoded data, should be prefixed with Data URI scheme format:
