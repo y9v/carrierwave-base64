@@ -16,6 +16,16 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
       it 'should respond to :original_filename' do
         expect(subject.original_filename).to eql("file.#{file_format}")
       end
+
+      it "calls a function that returns the file_name" do
+        method = -> { "file-name-through-method" }
+        model = described_class.new data, method
+        expect(model.file_name).to eql("file-name-through-method")
+      end
+      it "accepts a string as the file name as well" do
+        model = described_class.new data, "string-file-name"
+        expect(model.file_name).to eql("string-file-name")
+      end
     end
   end
 
