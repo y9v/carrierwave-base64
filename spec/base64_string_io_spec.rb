@@ -22,6 +22,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
         model = described_class.new data, method
         expect(model.file_name).to eql("file-name-through-method")
       end
+
       it "accepts a string as the file name as well" do
         model = described_class.new data, "string-file-name"
         expect(model.file_name).to eql("string-file-name")
