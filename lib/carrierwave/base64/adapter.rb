@@ -5,7 +5,9 @@ module Carrierwave
         mount_uploader attribute, uploader_class, options
 
         define_method "#{attribute}=" do |data|
-          send "#{attribute}_will_change!" if data.present?
+          if respond_to?("#{attribute}_will_change!") && data.present?
+            send "#{attribute}_will_change!"
+          end
 
           return super(data) unless data.is_a?(String) &&
                                     data.strip.start_with?('data')
