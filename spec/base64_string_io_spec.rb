@@ -1,5 +1,5 @@
 RSpec.describe Carrierwave::Base64::Base64StringIO do
-  %w(image/jpg application/pdf audio/mp3).each do |content_type|
+  %w(application/vnd.openxmlformats-officedocument.wordprocessingml.document image/jpg application/pdf audio/mp3).each do |content_type|
     context "correct #{content_type} data" do
       let(:data) do
         "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
@@ -10,6 +10,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
       subject { described_class.new data, 'file' }
 
       it 'determines the file format from the Data URI content type' do
+        binding.pry
         expect(subject.file_format).to eql(file_format)
       end
 
