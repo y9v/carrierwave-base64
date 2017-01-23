@@ -10,7 +10,6 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
       subject { described_class.new data, 'file' }
 
       it 'determines the file format from the Data URI content type' do
-        binding.pry
         expect(subject.file_format).to eql(file_format)
       end
 
