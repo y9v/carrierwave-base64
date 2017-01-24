@@ -1,8 +1,2 @@
-inherit_from:
-  - http://relaxed.ruby.style/rubocop.yml
-
 Documentation:
-  Enabled: false
-
-BlockLength:
   Enabled: false
