@@ -42,10 +42,14 @@ If the required MIME type is not registered, you can add it, using [MIME::Types#
 
 ## Setting the file name
 
-To set the file name for the uploaded files, use the `:file_name` option (without extention):
+**[DEPRECATED: Settings this option to a string is deprecated, if you still want to set the filename to a fixed string, wrap it in a Proc]** To set the file name for the uploaded files, use the `:file_name` option (without extention):
 
 ```ruby
+# Deprecated way:
 mount_base64_uploader :image, ImageUploader, file_name: 'userpic'
+
+# New way
+mount_base64_uploader :image, ImageUploader, file_name: -> { 'userpic' }
 ```
 
 You can also pass a Proc for the file-name to allow dynamic filenames.

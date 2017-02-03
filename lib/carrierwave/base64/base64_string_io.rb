@@ -5,13 +5,13 @@ module Carrierwave
 
       attr_accessor :file_extension, :file_name
 
-      def initialize(encoded_file, file_name_method_or_string)
+      def initialize(encoded_file, file_name_proc_or_string)
         description, encoded_bytes = encoded_file.split(',')
 
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?('(null)')
 
-        @file_name = extract_file_name(file_name_method_or_string)
+        @file_name = extract_file_name(file_name_proc_or_string)
         @file_extension = get_file_extension description
         bytes = ::Base64.decode64 encoded_bytes
 
@@ -33,11 +33,16 @@ module Carrierwave
         mime_type.preferred_extension
       end
 
-      def extract_file_name(method_or_string)
-        if method_or_string.is_a?(Proc)
-          method_or_string.call
+      def extract_file_name(proc_or_string)
+        if proc_or_string.is_a?(Proc)
+          proc_or_string.call
         else
-          method_or_string
+          warn(
+            '[Deprecation warning] Setting `file_name` option to a string is '\
+            'deprecated and will be removed in 2.5.0. If you want to keep the '\
+            'existing behaviour, wrap the string in a Proc'
+          )
+          proc_or_string
         end
       end
     end

@@ -3,6 +3,7 @@
 ## 2.4.0
 
   - The file extension for the uploaded base64 string is identified automatically, using `MIME::Types`. In case if the mime type for your upload is not identified, you need to add it, using `MIME::Types.add` (@lebedev-yury, @Quintasan, @adamcrown).
+  - **Deprecation**: Setting the `:file_name` option for the uploader to a string is deprecated. It has to be set to a Proc or lambda that returns a string instead (@lebedev-yury).
 
 ## 2.3.5
 
