@@ -60,10 +60,12 @@ mount_base64_uploader :image, ImageUploader, file_name: -> { 'userpic' }
 
 ## Data format
 
-The string with the encoded data, should be prefixed with Data URI scheme format:
+The string with the encoded data, should be prefixed with Data URI scheme format.
+
+Keep in mind, that the content type specified in this string, would be used to identified the file extension. So if you have some custom content type uploaded, don't forget to register a Mime Type for it.
 
 ```
-data:image/jpg;base64,(base64 encoded data)
+data:image/jpeg;base64,(base64 encoded data)
 ```
 
 ## Contributing
