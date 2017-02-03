@@ -24,6 +24,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rails', '>= 3.2.0'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'mongoid'
+  spec.add_development_dependency 'carrierwave-mongoid'
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', ['~> 10.0']
   spec.add_development_dependency 'rspec', ['~> 2.14']

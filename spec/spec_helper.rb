@@ -6,14 +6,19 @@ require 'sham_rack'
 
 require 'rails'
 require 'active_record'
+require 'mongoid'
 
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
+require 'carrierwave/mongoid'
 
 require 'carrierwave/base64'
 
 ActiveRecord::Base.raise_in_transactional_callbacks = true
-ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: ':memory:'
+)
 
 load 'support/schema.rb'
 require 'support/models'
