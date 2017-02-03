@@ -1,21 +1,23 @@
 RSpec.describe Carrierwave::Base64::Base64StringIO do
   %w(application/vnd.openxmlformats-officedocument.wordprocessingml.document
-     image/jpg application/pdf audio/mp3).each do |content_type|
+     image/jpeg application/pdf audio/mpeg).each do |content_type|
     context "correct #{content_type} data" do
       let(:data) do
         "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
       end
 
-      let(:file_format) { content_type.split('/').last }
+      let(:file_extension) do
+        MIME::Types[content_type].last.preferred_extension
+      end
 
       subject { described_class.new data, 'file' }
 
       it 'determines the file format from the Data URI content type' do
-        expect(subject.file_format).to eql(file_format)
+        expect(subject.file_extension).to eql(file_extension)
       end
 
       it 'should respond to :original_filename' do
-        expect(subject.original_filename).to eql("file.#{file_format}")
+        expect(subject.original_filename).to eql("file.#{file_extension}")
       end
 
       it 'calls a function that returns the file_name' do
@@ -40,7 +42,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
 
     it 'raises ArgumentError if base64 data eql (null)' do
       expect do
-        described_class.new('data:image/jpg;base64,(null)', 'file')
+        described_class.new('data:image/jpeg;base64,(null)', 'file')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
   end

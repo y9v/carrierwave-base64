@@ -52,7 +52,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
         expect(
           subject.image.current_path
-        ).to eq file_path('../uploads', 'file.jpg')
+        ).to eq file_path('../uploads', 'file.jpeg')
       end
 
       it 'sets will_change for the attribute' do

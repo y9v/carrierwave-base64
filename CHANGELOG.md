@@ -1,8 +1,16 @@
 # carrierwave-base64 changelog
 
+## 2.4.0
+
+  - The file extension for the uploaded base64 string is identified automatically, using `MIME::Types`. In case if the mime type for your upload is not identified, you need to add it, using `MIME::Types.add` (@lebedev-yury, @Quintasan, @adamcrown).
+
 ## 2.3.5
 
   - Fixed issue with mongoid models, when `attribute_will_change!` method was called, that wasn't defined in Mongoid models (credits to @cuongnm53)
+
+## 2.3.4
+
+  - Installation on the windows platform is fixed.
 
 ## 2.3.3
 

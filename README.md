@@ -8,7 +8,7 @@ Upload files encoded as base64 to carrierwave.
 
 This small gem can be useful for API's that interact with mobile devices.
 
-As of version 2.3.0, this gem requires Ruby 2.0 or higher
+This gem requires Ruby 2.0 or higher.
 
 ## Installation
 
@@ -33,6 +33,12 @@ mount_base64_uploader :image, ImageUploader
 ```
 
 Now you can also upload files by passing an encoded base64 string to the attribute.
+
+## Upload file extension
+
+The file extension for the uploaded base64 string is identified automatically using the [mime-types](https://github.com/mime-types/ruby-mime-types/) gem and `content_type` from the uploaded string.
+
+If the required MIME type is not registered, you can add it, using [MIME::Types#add](http://www.rubydoc.info/gems/mime-types/MIME/Types#add-class_method).
 
 ## Setting the file name
 
