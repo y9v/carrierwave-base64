@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.3.5
+
+  - Fixed issue with mongoid models, when `attribute_will_change!` method was called, that wasn't defined in Mongoid models (credits to @cuongnm53)
+
 ## 2.3.3
 
   - Added proc support for the `:file_name` option for the `mount_base64_uploader` method. (credits to @hendricius)

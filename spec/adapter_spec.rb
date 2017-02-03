@@ -7,6 +7,11 @@ RSpec.describe Carrierwave::Base64::Adapter do
       Post.new
     end
 
+    let(:mongoid_model) do
+      MongoidModel.mount_base64_uploader(:image, uploader)
+      MongoidModel.new
+    end
+
     it 'mounts the uploader on the image field' do
       expect(subject.image).to be_an_instance_of(uploader)
     end
@@ -20,7 +25,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
         subject[:image] = 'test.jpg'
       end
 
-      it 'sets will_change for the attribute' do
+      it 'sets will_change for the attribute on activerecord models' do
         expect(subject.changed?).to be_truthy
       end
 
@@ -52,6 +57,12 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
       it 'sets will_change for the attribute' do
         expect(subject.changed?).to be_truthy
+      end
+
+      it 'does not call will_change mongoid models' do
+        expect do
+          mongoid_model.image = 'test.jpg'
+        end.not_to raise_error
       end
     end
 
