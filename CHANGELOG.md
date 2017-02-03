@@ -2,6 +2,7 @@
 
 ## 2.4.0
 
+  - The `:file_name` option accepts a lambda with an argument, to which the model instance would be passed. This allows you to set the filename based on some model attribute (@lebedev-yury).
   - The file extension for the uploaded base64 string is identified automatically, using `MIME::Types`. In case if the mime type for your upload is not identified, you need to add it, using `MIME::Types.add` (@lebedev-yury, @Quintasan, @adamcrown).
   - **Deprecation**: Setting the `:file_name` option for the uploader to a string is deprecated. It has to be set to a Proc or lambda that returns a string instead (@lebedev-yury).
 

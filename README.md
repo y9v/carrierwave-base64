@@ -42,6 +42,12 @@ If the required MIME type is not registered, you can add it, using [MIME::Types#
 
 ## Setting the file name
 
+You can set the `file_name` option to a lambda, that will return a filename without an extension, using the model instance:
+
+```ruby
+mount_base64_uploader :image, ImageUploader, file_name: -> (u) { u.username }
+```
+
 **[DEPRECATED: Settings this option to a string is deprecated, if you still want to set the filename to a fixed string, wrap it in a Proc]** To set the file name for the uploaded files, use the `:file_name` option (without extention):
 
 ```ruby
@@ -50,12 +56,6 @@ mount_base64_uploader :image, ImageUploader, file_name: 'userpic'
 
 # New way
 mount_base64_uploader :image, ImageUploader, file_name: -> { 'userpic' }
-```
-
-You can also pass a Proc for the file-name to allow dynamic filenames.
-
-```ruby
-mount_base64_uploader :image, ImageUploader, file_name: -> { "file-#{DateTime.now.to_i}" }
 ```
 
 ## Data format

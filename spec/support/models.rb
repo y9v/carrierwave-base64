@@ -1,4 +1,7 @@
-class Post < ActiveRecord::Base
+class User < ActiveRecord::Base
+  def username
+    'batman'
+  end
 end
 
 class MongoidModel

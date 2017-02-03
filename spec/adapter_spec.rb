@@ -3,8 +3,10 @@ RSpec.describe Carrierwave::Base64::Adapter do
     let(:uploader) { Class.new CarrierWave::Uploader::Base }
 
     subject do
-      Post.mount_base64_uploader(:image, uploader)
-      Post.new
+      User.mount_base64_uploader(
+        :image, uploader, file_name: ->(u) { u.username }
+      )
+      User.new
     end
 
     let(:mongoid_model) do
@@ -52,7 +54,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
         expect(
           subject.image.current_path
-        ).to eq file_path('../uploads', 'file.jpeg')
+        ).to eq file_path('../uploads', 'batman.jpeg')
       end
 
       it 'sets will_change for the attribute' do
