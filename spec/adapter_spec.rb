@@ -77,6 +77,12 @@ RSpec.describe Carrierwave::Base64::Adapter do
         subject.reload
       end
 
+      it 'keeps the file when setting the attribute to existing value' do
+        expect(File.exist?(subject.reload.image.file.file)).to be_truthy
+        subject.update!(image: subject.image.to_s)
+        expect(File.exist?(subject.reload.image.file.file)).to be_truthy
+      end
+
       it 'removes files when remove_* is set to true' do
         subject.remove_image = true
         subject.save!

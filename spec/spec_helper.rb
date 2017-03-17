@@ -26,3 +26,5 @@ require 'support/models'
 def file_path(*paths)
   File.expand_path(File.join(File.dirname(__FILE__), *paths))
 end
+
+CarrierWave.root = ''

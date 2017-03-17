@@ -3,10 +3,13 @@ module Carrierwave
     module Adapter
       # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/PerceivedComplexity
       def mount_base64_uploader(attribute, uploader_class, options = {})
         mount_uploader attribute, uploader_class, options
 
         define_method "#{attribute}=" do |data|
+          return if data == send(attribute).to_s
+
           if respond_to?("#{attribute}_will_change!") && data.present?
             send "#{attribute}_will_change!"
           end
@@ -24,6 +27,7 @@ module Carrierwave
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
         # rubocop:enable Metrics/CyclomaticComplexity
+        # rubocop:enable Metrics/PerceivedComplexity
       end
     end
   end
