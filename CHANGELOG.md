@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.5.0
+
+  - The uploaded file is not deleted, when the attribute is set to the existing file name (@lebedev-yury, bug-report #51 by @jmuheim)
+
 ## 2.4.0
 
   - The `:file_name` option accepts a lambda with an argument, to which the model instance would be passed. This allows you to set the filename based on some model attribute (@lebedev-yury).
