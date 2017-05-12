@@ -18,11 +18,8 @@ module Carrierwave
                                     data.strip.start_with?('data')
 
           options[:file_name] ||= -> { attribute }
-          if options[:file_name].is_a?(Proc) && options[:file_name].arity == 1
-            options[:file_name] = options[:file_name].curry[self]
-          end
           super(Carrierwave::Base64::Base64StringIO.new(
-            data.strip, options[:file_name]
+            data.strip, options[:file_name].call(self)
           ))
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
