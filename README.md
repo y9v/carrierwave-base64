@@ -38,7 +38,15 @@ Now you can also upload files by passing an encoded base64 string to the attribu
 
 The file extension for the uploaded base64 string is identified automatically using the [mime-types](https://github.com/mime-types/ruby-mime-types/) gem and `content_type` from the uploaded string.
 
-If the required MIME type is not registered, you can add it, using [MIME::Types#add](http://www.rubydoc.info/gems/mime-types/MIME/Types#add-class_method).
+If the required MIME type is not registered, you can add it, using [MIME::Types#add](http://www.rubydoc.info/gems/mime-types/MIME/Types#add-class_method):
+
+```ruby
+MIME::Types.add(
+  MIME::Type.new('application/icml').tap do |type|
+    type.add_extensions 'icml'
+  end
+)
+```
 
 ## Setting the file name
 
