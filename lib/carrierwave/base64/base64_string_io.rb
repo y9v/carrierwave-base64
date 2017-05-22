@@ -39,7 +39,7 @@ module Carrierwave
         else
           warn(
             '[Deprecation warning] Setting `file_name` option to a string is '\
-            'deprecated and will be removed in 2.5.0. If you want to keep the '\
+            'deprecated and will be removed in 3.0.0. If you want to keep the '\
             'existing behaviour, wrap the string in a Proc'
           )
           proc_or_string
