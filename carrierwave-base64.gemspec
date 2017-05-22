@@ -1,4 +1,5 @@
 # coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -23,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'carrierwave', '>= 0.8.0'
   spec.add_dependency 'mime-types', '~> 3.0'
 
-  spec.add_development_dependency 'rails', '>= 3.2.0'
+  spec.add_development_dependency 'rails', '~> 4'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'mongoid'
   spec.add_development_dependency 'carrierwave-mongoid'

@@ -22,6 +22,7 @@ ActiveRecord::Base.establish_connection(
 
 load 'support/schema.rb'
 require 'support/models'
+require 'support/custom_expectations/warn_expectation'
 
 def file_path(*paths)
   File.expand_path(File.join(File.dirname(__FILE__), *paths))

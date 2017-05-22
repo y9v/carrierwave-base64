@@ -6,7 +6,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
       User.mount_base64_uploader(
         :image, uploader, file_name: ->(u) { u.username }
       )
-      User.new
+      User.new(username: 'batman')
     end
 
     let(:mongoid_model) do
@@ -65,6 +65,25 @@ RSpec.describe Carrierwave::Base64::Adapter do
         expect do
           mongoid_model.image = 'test.jpg'
         end.not_to raise_error
+      end
+
+      context 'with additional instances of the mounting class' do
+        let(:another_subject) do
+          another_subject = User.new(username: 'robin')
+          another_subject.image = File.read(
+            file_path('fixtures', 'base64_image.fixture')
+          ).strip
+          another_subject
+        end
+
+        it 'should invoke the file_name proc upon each upload' do
+          subject.save!
+          another_subject.save!
+          another_subject.reload
+          expect(
+            another_subject.image.current_path
+          ).to eq file_path('../uploads', 'robin.jpeg')
+        end
       end
     end
 

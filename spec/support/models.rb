@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-  def username
-    'batman'
-  end
+  attr_accessor :username
 end
 
 class MongoidModel

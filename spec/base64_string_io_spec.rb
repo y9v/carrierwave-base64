@@ -1,6 +1,6 @@
 RSpec.describe Carrierwave::Base64::Base64StringIO do
-  %w(application/vnd.openxmlformats-officedocument.wordprocessingml.document
-     image/jpeg application/pdf audio/mpeg).each do |content_type|
+  %w[application/vnd.openxmlformats-officedocument.wordprocessingml.document
+     image/jpeg application/pdf audio/mpeg].each do |content_type|
     context "correct #{content_type} data" do
       let(:data) do
         "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
@@ -22,13 +22,29 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
 
       it 'calls a function that returns the file_name' do
         method = ->(u) { u.username }
-        base64_string_io = described_class.new data, method.curry[User.new]
+        base64_string_io = described_class.new(
+          data, method.curry[User.new(username: 'batman')]
+        )
         expect(base64_string_io.file_name).to eql('batman')
       end
 
       it 'accepts a string as the file name as well' do
         model = described_class.new data, 'string-file-name'
         expect(model.file_name).to eql('string-file-name')
+      end
+
+      it 'issues deprecation warning when string given for file name' do
+        str = ->(u) { u.username }.curry[User.new(username: 'batman')]
+        expect do
+          described_class.new(data, str).file_name
+        end.to warn('Deprecation')
+      end
+
+      it 'does NOT issue deprecation warning when Proc given for file name' do
+        prc = -> { 'String' }
+        expect do
+          described_class.new(data, prc).file_name
+        end.not_to warn('Deprecation')
       end
     end
   end
