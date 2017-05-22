@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.5.1
+
+ - Fixed the issue with the filename to be set once for a model, and never updated again (@dustMason, #55)
+
 ## 2.5.0
 
   - The uploaded file is not deleted, when the attribute is set to the existing file name (@lebedev-yury, bug-report #51 by @jmuheim)
