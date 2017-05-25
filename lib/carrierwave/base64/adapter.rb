@@ -8,7 +8,18 @@ module Carrierwave
         mount_uploader attribute, uploader_class, options
         options[:file_name] ||= -> { attribute }
 
-        define_method "#{attribute}=" do |data|
+        define_method "#{attribute}=" do |value|
+          # Handle hashes and instances of ActionController::Parameters
+          if value.respond_to?(:has_key?)
+            if value[:file_name]
+              filename = File.basename(value[:file_name], ".*")
+            end
+
+            data = value[:data]
+          else
+            data = value
+          end
+
           return if data == send(attribute).to_s
 
           if respond_to?("#{attribute}_will_change!") && data.present?
@@ -18,11 +29,11 @@ module Carrierwave
           return super(data) unless data.is_a?(String) &&
                                     data.strip.start_with?('data')
 
-          filename = if options[:file_name].respond_to?(:call)
-                       options[:file_name].call(self)
-                     else
-                       options[:file_name].to_s
-                     end
+          filename ||= if options[:file_name].respond_to?(:call)
+                         options[:file_name].call(self)
+                       else
+                         options[:file_name].to_s
+                       end
 
           super Carrierwave::Base64::Base64StringIO.new(data.strip, filename)
         end

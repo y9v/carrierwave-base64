@@ -66,6 +66,14 @@ mount_base64_uploader :image, ImageUploader, file_name: 'userpic'
 mount_base64_uploader :image, ImageUploader, file_name: -> { 'userpic' }
 ```
 
+Alternatively file name can be set explicitly when setting the attribute which can be useful in situations when filename is provided along with encoded file. Simply assign a hash (or instance of `ActionController::Parameters`) to attribute instead of string. E.g.
+
+```
+record.image = {
+  data: "data:image/jpeg;base64,(base64 encoded data)",
+  filename: "image.jpeg"
+}
+
 ## Data format
 
 The string with the encoded data, should be prefixed with Data URI scheme format.
