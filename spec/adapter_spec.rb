@@ -87,6 +87,26 @@ RSpec.describe Carrierwave::Base64::Adapter do
       end
     end
 
+    context 'base64 string and filename passed in a hash' do
+      before(:each) do
+        subject.image = {
+          data: File.read(
+            file_path('fixtures', 'base64_image.fixture')
+          ).strip,
+          file_name: 'image.jpeg'
+        }
+      end
+
+      it 'creates a file' do
+        subject.save!
+        subject.reload
+
+        expect(
+          subject.image.current_path
+        ).to eq file_path('../uploads', 'image.jpeg')
+      end
+    end
+
     context 'stored uploads exist for the field' do
       before :each do
         subject.image = File.read(
