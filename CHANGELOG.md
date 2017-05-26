@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.5.2
+
+ - Fixed the exception for uploads without `file_name` option set (issue #56 by @hanhdt, fix by @szajbus)
+
 ## 2.5.1
 
  - Fixed the issue with the filename to be set once for a model, and never updated again (@dustMason, #55)

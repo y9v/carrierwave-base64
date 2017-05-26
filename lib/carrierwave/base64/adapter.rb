@@ -6,7 +6,7 @@ module Carrierwave
       # rubocop:disable Metrics/PerceivedComplexity
       def mount_base64_uploader(attribute, uploader_class, options = {})
         mount_uploader attribute, uploader_class, options
-        options[:file_name] ||= -> { attribute }
+        options[:file_name] ||= proc { attribute }
 
         define_method "#{attribute}=" do |data|
           return if data == send(attribute).to_s
