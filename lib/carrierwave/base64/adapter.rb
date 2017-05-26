@@ -8,6 +8,14 @@ module Carrierwave
         mount_uploader attribute, uploader_class, options
         options[:file_name] ||= proc { attribute }
 
+        if options[:file_name].is_a?(String)
+          warn(
+            '[Deprecation warning] Setting `file_name` option to a string is '\
+            'deprecated and will be removed in 3.0.0. If you want to keep the '\
+            'existing behaviour, wrap the string in a Proc'
+          )
+        end
+
         define_method "#{attribute}=" do |data|
           return if data == send(attribute).to_s
 
@@ -21,8 +29,8 @@ module Carrierwave
           filename = if options[:file_name].respond_to?(:call)
                        options[:file_name].call(self)
                      else
-                       options[:file_name].to_s
-                     end
+                       options[:file_name]
+                     end.to_s
 
           super Carrierwave::Base64::Base64StringIO.new(data.strip, filename)
         end

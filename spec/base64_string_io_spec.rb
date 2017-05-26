@@ -32,20 +32,6 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
         model = described_class.new data, 'string-file-name'
         expect(model.file_name).to eql('string-file-name')
       end
-
-      it 'issues deprecation warning when string given for file name' do
-        str = ->(u) { u.username }.curry[User.new(username: 'batman')]
-        expect do
-          described_class.new(data, str).file_name
-        end.to warn('Deprecation')
-      end
-
-      it 'does NOT issue deprecation warning when Proc given for file name' do
-        prc = -> { 'String' }
-        expect do
-          described_class.new(data, prc).file_name
-        end.not_to warn('Deprecation')
-      end
     end
   end
 
