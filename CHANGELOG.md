@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.5.3
+
+ - Fixed an incorrect deprecation warning that fired even with `file_name` option set to a Proc (#60, @frodsan)
+
 ## 2.5.2
 
  - Fixed the exception for uploads without `file_name` option set (issue #56 by @hanhdt, fix by @szajbus)
