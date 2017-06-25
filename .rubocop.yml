@@ -4,3 +4,12 @@ Documentation:
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
+
+Style/FirstParameterIndentation:
+  Enabled: false
+
+Style/IndentArray:
+  Enabled: false
+
+Layout/TrailingBlankLines:
+  Enabled: false

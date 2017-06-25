@@ -6,7 +6,6 @@ class MongoidModel
   include Mongoid::Document
 end
 
-
 class Email < ActiveRecord::Base
   serialize :attachments, Array
 end

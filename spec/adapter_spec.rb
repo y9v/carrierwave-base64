@@ -170,12 +170,14 @@ RSpec.describe Carrierwave::Base64::Adapter do
       expect(subject.attachments).to be_an_instance_of(Array)
     end
 
-
     context 'base64 strings with requested file names' do
       before(:each) do
         subject.attachments = [
-            [File.read(file_path('fixtures', 'base64_image.fixture')).strip, 'test.jpg'],
-            [File.read(file_path('fixtures', 'base64_image.fixture')).strip, 'another_test.jpg']]
+            [File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+             'test.jpg'],
+            [File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+             'another_test.jpg']
+        ]
       end
 
       it 'creates a file' do
@@ -207,11 +209,11 @@ RSpec.describe Carrierwave::Base64::Adapter do
         subject.save!
         subject.reload
         expect(
-            subject.attachments[0].current_path
+          subject.attachments[0].current_path
         ).to eq file_path('../uploads', 'file.jpeg')
 
         expect(
-            subject.attachments[1].current_path
+          subject.attachments[1].current_path
         ).to eq file_path('../uploads', 'file.jpeg')
       end
 

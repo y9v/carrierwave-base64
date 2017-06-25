@@ -23,7 +23,8 @@ module Carrierwave
             send "#{attribute}_will_change!"
           end
 
-          return super(data) unless data.is_a?(String) && data.strip.start_with?('data')
+          return super(data) unless data.is_a?(String) &&
+                                    data.strip.start_with?('data')
 
           filename = if options[:file_name].respond_to?(:call)
                        options[:file_name].call(self)
@@ -60,12 +61,17 @@ module Carrierwave
               content, original_filename = data
               next unless content.strip.start_with?('data')
               Carrierwave::Base64::Base64StringIO.new(
-                  content.strip, options[:file_name] || 'file', original_filename
+                  content.strip,
+                  options[:file_name] || 'file',
+                  original_filename
               )
             else
               content = data
               next unless content.strip.start_with?('data')
-              Carrierwave::Base64::Base64StringIO.new(content.strip, options[:file_name] || 'file')
+              Carrierwave::Base64::Base64StringIO.new(
+                  content.strip,
+                  options[:file_name] || 'file'
+              )
             end
           end
           super(results)
