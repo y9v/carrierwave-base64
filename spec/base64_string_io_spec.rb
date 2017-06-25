@@ -51,7 +51,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
 
   context 'image data with requested file name' do
     let(:data) do
-      'data:jpeg;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=='
+      'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=='
     end
 
     subject { described_class.new data, 'file', 'custom.png' }
