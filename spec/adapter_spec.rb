@@ -157,4 +157,75 @@ RSpec.describe Carrierwave::Base64::Adapter do
       end
     end
   end
+
+  describe '.mount_base64_uploaders' do
+    let(:uploader) { Class.new CarrierWave::Uploader::Base }
+
+    context 'when model set filename with lambda' do
+      subject do
+        Email.mount_base64_uploaders(:attachments, uploader,
+                                     file_name: ->(u) { u.subject })
+        Email.new(
+          subject: 'hello',
+          attachments: [
+            File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+            File.read(file_path('fixtures', 'base64_image.fixture')).strip
+          ]
+        )
+      end
+
+      it 'mounts the uploader on the image field' do
+        expect(subject.attachments).to be_an_instance_of(Array)
+      end
+
+      it 'creates a file' do
+        subject.save!
+        subject.reload
+        expect(
+          subject.attachments[0].current_path
+        ).to eq file_path('../uploads', 'hello_1.jpeg')
+
+        expect(
+          subject.attachments[1].current_path
+        ).to eq file_path('../uploads', 'hello_2.jpeg')
+      end
+
+      it 'sets will_change for the attribute' do
+        expect(subject.changed?).to be_truthy
+      end
+    end
+
+    context 'when model set filename as string' do
+      subject do
+        Email.mount_base64_uploaders(:attachments, uploader,
+                                     file_name: 'file')
+        Email.new(
+          attachments: [
+            File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+            File.read(file_path('fixtures', 'base64_image.fixture')).strip
+          ]
+        )
+      end
+
+      it 'mounts the uploader on the image field' do
+        expect(subject.attachments).to be_an_instance_of(Array)
+      end
+
+      it 'creates a file' do
+        subject.save!
+        subject.reload
+        expect(
+          subject.attachments[0].current_path
+        ).to eq file_path('../uploads', 'file_1.jpeg')
+
+        expect(
+          subject.attachments[1].current_path
+        ).to eq file_path('../uploads', 'file_2.jpeg')
+      end
+
+      it 'sets will_change for the attribute' do
+        expect(subject.changed?).to be_truthy
+      end
+    end
+  end
 end

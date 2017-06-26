@@ -76,6 +76,19 @@ Keep in mind, that the content type specified in this string, would be used to i
 data:image/jpeg;base64,(base64 encoded data)
 ```
 
+## Upload multiple files
+
+Multiple file uploading is also supported. 
+
+```ruby
+mount_base64_uploaders :images, ImageUploader, file_name: 'userpic'
+
+mount_base64_uploaders :images, ImageUploader, file_name: -> { 'userpic' }
+```
+
+In either of the case above, the images will be named as `userpic_1`, `userpic_2`, `userpic_3` etc
+
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/carrierwave-base64/fork )
