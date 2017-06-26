@@ -7,5 +7,6 @@ class MongoidModel
 end
 
 class Email < ActiveRecord::Base
+  attr_accessor :subject
   serialize :attachments, Array
 end

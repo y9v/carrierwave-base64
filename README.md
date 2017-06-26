@@ -78,32 +78,15 @@ data:image/jpeg;base64,(base64 encoded data)
 
 ## Upload multiple files
 
-You can also upload multiple file by mounting uploaders. 
+Multiple file uploading is also supported. 
 
 ```ruby
-mount_base64_uploaders :attachments, AttachmentUploader
+mount_base64_uploaders :images, ImageUploader, file_name: 'userpic'
+
+mount_base64_uploaders :images, ImageUploader, file_name: -> { 'userpic' }
 ```
 
-But you need to check `carrierwave` if it is supporting multiple files uploading first (only the master branch supports currently). Otherwise you need to update your `carrierwave` version:
-```ruby
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
-```
-
-You can name the files statically in the same way with single file uploading above. But if you are uploading more than one files to one repository, it is not a good idea. Instead, you can set the names for the files by request. For instance:
-```ruby
-attachments = []
-new_attachment = {
-    'icon.png': 'data:image/png;base64,/9j/4AAQSkZJRgABAQAASABIAAD...', 
-    'avatar.jpg': 'data:image/jpeg;base64,/9j/LKJJLASKJLOASIDUOIUASO...'
-}
-new_attachments.each do |file_name, attachment| 
-    attachments << [attachment, file_name]
-end    
-email.attachments = attachments
-email.save
-```
-
-  
+In either of the case above, the images will be named as `userpic_1`, `userpic_2`, `userpic_3` etc
 
 
 ## Contributing
