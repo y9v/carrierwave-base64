@@ -61,16 +61,16 @@ module Carrierwave
               content, original_filename = data
               next unless content.strip.start_with?('data')
               Carrierwave::Base64::Base64StringIO.new(
-                  content.strip,
-                  options[:file_name] || 'file',
-                  original_filename
+                content.strip,
+                options[:file_name] || 'file',
+                original_filename
               )
             else
               content = data
               next unless content.strip.start_with?('data')
               Carrierwave::Base64::Base64StringIO.new(
-                  content.strip,
-                  options[:file_name] || 'file'
+                content.strip,
+                options[:file_name] || 'file'
               )
             end
           end

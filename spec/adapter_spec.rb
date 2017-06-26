@@ -173,10 +173,10 @@ RSpec.describe Carrierwave::Base64::Adapter do
     context 'base64 strings with requested file names' do
       before(:each) do
         subject.attachments = [
-            [File.read(file_path('fixtures', 'base64_image.fixture')).strip,
-             'test.jpg'],
-            [File.read(file_path('fixtures', 'base64_image.fixture')).strip,
-             'another_test.jpg']
+          [File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+           'test.jpg'],
+          [File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+           'another_test.jpg']
         ]
       end
 
@@ -184,11 +184,11 @@ RSpec.describe Carrierwave::Base64::Adapter do
         subject.save!
         subject.reload
         expect(
-            subject.attachments[0].current_path
+          subject.attachments[0].current_path
         ).to eq file_path('../uploads', 'test.jpg')
 
         expect(
-            subject.attachments[1].current_path
+          subject.attachments[1].current_path
         ).to eq file_path('../uploads', 'another_test.jpg')
       end
 
@@ -200,8 +200,8 @@ RSpec.describe Carrierwave::Base64::Adapter do
     context 'base64 strings with requested file names' do
       before(:each) do
         subject.attachments = [
-            File.read(file_path('fixtures', 'base64_image.fixture')).strip,
-            File.read(file_path('fixtures', 'base64_image.fixture')).strip
+          File.read(file_path('fixtures', 'base64_image.fixture')).strip,
+          File.read(file_path('fixtures', 'base64_image.fixture')).strip
         ]
       end
 
