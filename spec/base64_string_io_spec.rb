@@ -52,5 +52,10 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
         described_class.new("data:image/jpg;base64,(null)")
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
+
+    it "replaces white space with plus sign" do
+      image_data =  "data:image/jpg;base64,/9j/4AAQSkZ JRgABAQEAS ABKdhH//2Q=="
+      expect(described_class.new(image_data).file_format).to eql('jpg')                                       
+    end
   end
 end
