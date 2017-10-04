@@ -11,7 +11,7 @@ module Carrierwave
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?("(null)")
 
-        encoded_bytes = encoded_bytes.gsub(' ', '+')
+        encoded_bytes = encoded_bytes.tr(' ', '+')
         @file_format = get_file_format description
         bytes = ::Base64.decode64 encoded_bytes
 
