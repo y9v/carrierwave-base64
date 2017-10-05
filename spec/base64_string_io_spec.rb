@@ -1,55 +1,50 @@
-require "spec_helper"
-
 RSpec.describe Carrierwave::Base64::Base64StringIO do
-  context "correct image data" do
-    let(:image_data) { "data:image/jpg;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
-    subject { described_class.new image_data }
+  %w[application/vnd.openxmlformats-officedocument.wordprocessingml.document
+     image/jpeg application/pdf audio/mpeg].each do |content_type|
+    context "correct #{content_type} data" do
+      let(:data) do
+        "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
+      end
 
-    it "determines the image format from the Data URI scheme" do
-      expect(subject.file_format).to eql("jpg")
-    end
+      let(:file_extension) do
+        MIME::Types[content_type].last.preferred_extension
+      end
 
-    it "should respond to :original_filename" do
-      expect(subject.original_filename).to eql("file.jpg")
-    end
-  end
+      subject { described_class.new data, 'file' }
 
-  context "correct pdf data" do
-    let(:image_data) { "data:application/pdf;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
-    subject { described_class.new image_data }
+      it 'determines the file format from the Data URI content type' do
+        expect(subject.file_extension).to eql(file_extension)
+      end
 
-    it "determines the image format from the Data URI scheme" do
-      expect(subject.file_format).to eql("pdf")
-    end
+      it 'should respond to :original_filename' do
+        expect(subject.original_filename).to eql("file.#{file_extension}")
+      end
 
-    it "should respond to :original_filename" do
-      expect(subject.original_filename).to eql("file.pdf")
-    end
-  end
+      it 'calls a function that returns the file_name' do
+        method = ->(u) { u.username }
+        base64_string_io = described_class.new(
+          data, method.curry[User.new(username: 'batman')]
+        )
+        expect(base64_string_io.file_name).to eql('batman')
+      end
 
-  context "correct mp3 data" do
-    let(:audio_data) { "data:audio/mp3;base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q==" }
-    subject { described_class.new audio_data }
-
-    it "determines the image format from the Data URI scheme" do
-      expect(subject.file_format).to eql("mp3")
-    end
-
-    it "should respond to :original_filename" do
-      expect(subject.original_filename).to eql("file.mp3")
+      it 'accepts a string as the file name as well' do
+        model = described_class.new data, 'string-file-name'
+        expect(model.file_name).to eql('string-file-name')
+      end
     end
   end
 
-  context "incorrect image data" do
-    it "raises an ArgumentError if Data URI scheme format is missing" do
+  context 'invalid image data' do
+    it 'raises an ArgumentError if Data URI content type is missing' do
       expect do
-        described_class.new("/9j/4AAQSkZJRgABAQEASABIAADKdhH//2Q==")
+        described_class.new('/9j/4AAQSkZJRgABAQEASABIAADKdhH//2Q==', 'file')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
 
-    it "raises ArgumentError if base64 data eql (null)" do
+    it 'raises ArgumentError if base64 data eql (null)' do
       expect do
-        described_class.new("data:image/jpg;base64,(null)")
+        described_class.new('data:image/jpeg;base64,(null)', 'file')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
   end
