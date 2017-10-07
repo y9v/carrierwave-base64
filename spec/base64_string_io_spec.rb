@@ -47,5 +47,11 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
         described_class.new('data:image/jpeg;base64,(null)', 'file')
       end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
+
+    it 'raises ArgumentError if base64 data contains white space' do
+      expect do
+        described_class.new("data:image/jpeg;base64,/9j/4AAQSk ZJRgABA QEASABKdhH//2Q==")
+      end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
+    end
   end
 end
