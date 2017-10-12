@@ -11,13 +11,9 @@ module Carrierwave
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?('(null)')
 
-        if encoded_bytes.match(/\s/).present?
-          raise ArgumentError, 'Base64 string cannot contain whitespace'
-        end
-
         @file_name = file_name
         @file_extension = get_file_extension description
-        bytes = ::Base64.decode64 encoded_bytes
+        bytes = ::Base64.strict_decode64 encoded_bytes
 
         super bytes
       end
