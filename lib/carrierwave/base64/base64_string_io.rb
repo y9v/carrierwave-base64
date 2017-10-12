@@ -1,8 +1,6 @@
 module Carrierwave
   module Base64
     class Base64StringIO < StringIO
-      class ArgumentError < StandardError; end
-
       attr_accessor :file_extension, :file_name
 
       def initialize(encoded_file, file_name)
@@ -25,7 +23,8 @@ module Carrierwave
         content_type = description.split(';base64').first
         mime_type = MIME::Types[content_type].first
         unless mime_type
-          raise ArgumentError, "Unknown MIME type: #{content_type}"
+          raise Carrierwave::Base64::UnknownMimeTypeError,
+                "Unknown MIME type: #{content_type}"
         end
         mime_type.preferred_extension
       end

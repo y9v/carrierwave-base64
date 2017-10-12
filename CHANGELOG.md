@@ -1,5 +1,10 @@
 # carrierwave-base64 changelog
 
+## 2.6.0
+
+ - Fixed the issue with base64 string not being validated (#64, @sjdrabbani)
+ - Sending a base64 string with missing or unknown MIME Type will raise `Carrierwave::Base64::UnknownMimeTypeError` (@lebedev-yury)
+
 ## 2.5.3
 
  - Fixed an incorrect deprecation warning that fired even with `file_name` option set to a Proc (#60, @frodsan)
