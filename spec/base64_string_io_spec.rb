@@ -45,7 +45,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     it 'raises ArgumentError if base64 data eql (null)' do
       expect do
         described_class.new('data:image/jpeg;base64,(null)', 'file')
-      end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
+      end.to raise_error(ArgumentError, 'invalid base64')
     end
 
     it 'raises ArgumentError if base64 data contains white space' do
