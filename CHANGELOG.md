@@ -1,5 +1,11 @@
 # carrierwave-base64 changelog
 
+## 2.6.1
+
+This release fixes the issue that the public API of the gem was changed in 2.6.0, by switching from RFC 2045 to RFC 4648 standard for base64 strings.
+
+ - Switched back to RFC 2045 standard for base64 strings (@lebedev-yury)
+
 ## 2.6.0
 
  - Fixed the issue with base64 string not being validated (#64, @sjdrabbani)

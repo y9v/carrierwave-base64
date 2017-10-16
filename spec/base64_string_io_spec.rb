@@ -36,16 +36,16 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
   end
 
   context 'invalid image data' do
-    it 'raises UnknownMimeTypeError for unknown mime types' do
+    it 'raises ArgumentError for invalid image data' do
       expect do
         described_class.new('/9j/4AAQSkZJRgABAQEASABIAADKdhH//2Q==', 'file')
-      end.to raise_error(Carrierwave::Base64::UnknownMimeTypeError)
+      end.to raise_error(ArgumentError)
     end
 
     it 'raises ArgumentError if base64 data equals to (null)' do
       expect do
         described_class.new('data:image/jpeg;base64,(null)', 'file')
-      end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
+      end.to raise_error(ArgumentError)
     end
   end
 end
