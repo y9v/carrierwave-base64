@@ -3,7 +3,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
      image/jpeg application/pdf audio/mpeg].each do |content_type|
     context "correct #{content_type} data" do
       let(:data) do
-        "data:#{content_type};base64,VGhpcyBpcyB0ZXN0IHN0cmluZw=="
+        "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
       end
 
       let(:file_extension) do
@@ -45,13 +45,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
     it 'raises ArgumentError if base64 data equals to (null)' do
       expect do
         described_class.new('data:image/jpeg;base64,(null)', 'file')
-      end.to raise_error(ArgumentError, 'invalid base64')
-    end
-
-    it 'raises ArgumentError if base64 data contains white space' do
-      expect do
-        described_class.new 'data:image/jpeg;base64,VGhpcyBpc yB0Z==', 'file'
-      end.to raise_error(ArgumentError, 'invalid base64')
+      end.to raise_error(Carrierwave::Base64::Base64StringIO::ArgumentError)
     end
   end
 end
