@@ -156,5 +156,25 @@ RSpec.describe Carrierwave::Base64::Adapter do
         end
       end
     end
+
+    context 'models with presence validation on attribute with uploader' do
+      subject do
+        User.validates(:image, presence: true)
+        User.mount_base64_uploader(:image, uploader)
+        User.new
+      end
+
+      before(:each) do
+        subject.image = File.read(
+          file_path('fixtures', 'base64_image.fixture')
+        ).strip
+        subject.save!
+        subject.reload
+      end
+
+      it 'gives no false positive on presence validation' do
+        expect { subject.update!(username: 'new-username') }.not_to raise_error
+      end
+    end
   end
 end
