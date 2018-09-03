@@ -22,8 +22,10 @@ module Carrierwave
       end
 
       def define_writer(klass, attr, options)
-        klass.define_method "#{attr}=" do |data|
+        klass.send(:define_method, "#{attr}=") do |data|
+          # rubocop:disable Lint/NonLocalExitFromIterator
           return if data.to_s.empty? || data == send(attr).to_s
+          # rubocop:enable Lint/NonLocalExitFromIterator
 
           send("#{attr}_will_change!") if respond_to?("#{attr}_will_change!")
 
