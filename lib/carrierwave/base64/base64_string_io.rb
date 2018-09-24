@@ -4,7 +4,11 @@ module Carrierwave
     # decoded bytes, and extracts the file MIME type to build a file
     # name with extension.
     class Base64StringIO < StringIO
-      attr_reader :file_extension, :file_name
+      # @return [String] the file name without extension
+      attr_reader :file_name
+
+      # @return [String] the file extension for the uploaded file
+      attr_reader :file_extension
 
       # Returns a StringIO with decoded bytes from the base64 encoded
       # string and builds a file name with extension for the uploaded file,

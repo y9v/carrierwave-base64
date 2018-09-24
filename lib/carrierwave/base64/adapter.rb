@@ -1,5 +1,7 @@
 module Carrierwave
   module Base64
+    # Module with .mount_base64_uploader method, that is mixed in to
+    # ActiveRecord::Base or Mongoid::Document::ClassMethods
     module Adapter
       # Mounts the carrierwave uploader that can accept a base64 encoded
       # string as input. It also accepts regular file uploads.
