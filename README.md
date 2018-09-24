@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/carrierwave-base64.svg)](http://badge.fury.io/rb/carrierwave-base64)
 [![Build Status](https://travis-ci.org/y9v/carrierwave-base64.svg?branch=master)](https://travis-ci.org/y9v/carrierwave-base64)
 [![Code Climate](https://codeclimate.com/github/y9v/carrierwave-base64/badges/gpa.svg)](https://codeclimate.com/github/y9v/carrierwave-base64)
+[![Inch CI](https://inch-ci.org/github/y9v/carrierwave-base64.svg?branch=master)](https://inch-ci.org/github/y9v/carrierwave-base64)
 
 Upload files encoded as base64 to carrierwave.
 
