@@ -1,8 +1,21 @@
 module Carrierwave
   module Base64
+    # Class that decodes a base64 string, builds a StringIO for the
+    # decoded bytes, and extracts the file MIME type to build a file
+    # name with extension.
     class Base64StringIO < StringIO
-      attr_accessor :file_extension, :file_name
+      attr_reader :file_extension, :file_name
 
+      # Returns a StringIO with decoded bytes from the base64 encoded
+      # string and builds a file name with extension for the uploaded file,
+      # based on the MIME type specified in the base64 encoded string.
+      #
+      # @param encoded_file [String] the base64 encoded file contents
+      # @param file_name [String] the file name without extention
+      #
+      # @raise [ArgumentError] If the base64 encoded string is empty
+      #
+      # @return [StringIO] StringIO with decoded bytes
       def initialize(encoded_file, file_name)
         description, encoded_bytes = encoded_file.split(',')
 
@@ -16,6 +29,10 @@ module Carrierwave
         super bytes
       end
 
+      # Returns a file name with extension, based on the MIME type specified
+      # in the base64 encoded string.
+      #
+      # @return [String] File name with extention
       def original_filename
         File.basename("#{@file_name}.#{@file_extension}")
       end
