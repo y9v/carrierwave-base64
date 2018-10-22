@@ -30,7 +30,6 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
         it 'creates a file' do
           subject.save!
-          subject.reload
 
           expect(
             subject.image.current_path
@@ -86,7 +85,6 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
         it 'saves the file' do
           subject.save!
-          subject.reload
 
           expect(
             subject.image.current_path
@@ -103,7 +101,6 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
         it 'creates a file' do
           subject.save!
-          subject.reload
 
           expect(
             subject.image.current_path
@@ -126,7 +123,6 @@ RSpec.describe Carrierwave::Base64::Adapter do
           it 'should invoke the file_name proc upon each upload' do
             subject.save!
             another_subject.save!
-            another_subject.reload
             expect(
               another_subject.image.current_path
             ).to eq file_path('../uploads', 'robin.jpeg')
@@ -140,19 +136,18 @@ RSpec.describe Carrierwave::Base64::Adapter do
             file_path('fixtures', 'base64_image.fixture')
           ).strip
           subject.save!
-          subject.reload
         end
 
         it 'keeps the file when setting the attribute to existing value' do
-          expect(File.exist?(subject.reload.image.file.file)).to be_truthy
+          expect(File.exist?(subject.image.file.file)).to be_truthy
           subject.update!(image: subject.image.to_s)
-          expect(File.exist?(subject.reload.image.file.file)).to be_truthy
+          expect(File.exist?(subject.image.file.file)).to be_truthy
         end
 
         it 'removes files when remove_* is set to true' do
           subject.remove_image = true
           subject.save!
-          expect(subject.reload.image.file).to be_nil
+          expect(subject.image.file).to be_nil
         end
       end
     end
@@ -169,7 +164,6 @@ RSpec.describe Carrierwave::Base64::Adapter do
           file_path('fixtures', 'base64_image.fixture')
         ).strip
         subject.save!
-        subject.reload
       end
 
       it 'gives no false positive on presence validation' do
