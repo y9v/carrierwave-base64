@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'carrierwave', '>= 0.8.0'
   spec.add_dependency 'mime-types', '~> 3.0'
+  spec.add_dependency 'mimemagic', '~> 0.3.2'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'carrierwave-mongoid'
