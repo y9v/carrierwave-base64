@@ -33,7 +33,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
           expect(
             subject.image.current_path
-          ).to eq file_path('../uploads', 'image.jpeg')
+          ).to eq file_path('../uploads', 'image.png')
         end
       end
     end
@@ -104,7 +104,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
           expect(
             subject.image.current_path
-          ).to eq file_path('../uploads', 'batman.jpeg')
+          ).to eq file_path('../uploads', 'batman.png')
         end
 
         it 'sets will_change for the attribute' do
@@ -125,7 +125,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
             another_subject.save!
             expect(
               another_subject.image.current_path
-            ).to eq file_path('../uploads', 'robin.jpeg')
+            ).to eq file_path('../uploads', 'robin.png')
           end
         end
       end

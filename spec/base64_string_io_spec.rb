@@ -2,17 +2,19 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
   %w[application/vnd.openxmlformats-officedocument.wordprocessingml.document
      image/jpeg application/pdf audio/mpeg].each do |content_type|
     context "correct #{content_type} data" do
-      let(:data) do
-        "data:#{content_type};base64,/9j/4AAQSkZJRgABAQEASABKdhH//2Q=="
-      end
-
       let(:file_extension) do
         MIME::Types[content_type].last.preferred_extension
       end
 
+      let(:data) do
+        file_name = "test.#{file_extension}"
+        bytes = File.read(file_path('fixtures', file_name))
+        "data:#{content_type};base64,#{::Base64.encode64(bytes)}"
+      end
+
       subject { described_class.new data, 'file' }
 
-      it 'determines the file format from the Data URI content type' do
+      it 'determines the file format from the content type' do
         expect(subject.file_extension).to eql(file_extension)
       end
 

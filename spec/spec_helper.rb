@@ -28,3 +28,15 @@ def file_path(*paths)
 end
 
 CarrierWave.root = ''
+
+# Add preferred file types similar to how users would implement custom types
+content_types = {
+  'audio/mpeg' => 'mp3'
+}
+content_types.each do |content_type, extension|
+  MIME::Types.add(
+    MIME::Type.new(content_type).tap do |type|
+      type.preferred_extension = extension
+    end
+  )
+end
