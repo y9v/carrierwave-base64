@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.8.0
+
+ - Mime Type is now detected from file contents, falling back to the type, specified by the user. (#73, @justisb)
+
 ## 2.7.0
 
  - Railtie is not required by default, so the gem can be used in non Rails app (@sleepingstu)
