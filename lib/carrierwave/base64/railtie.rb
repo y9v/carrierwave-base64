@@ -8,8 +8,7 @@ module Carrierwave
       end
 
       ActiveSupport.on_load :mongoid do
-        Mongoid::Document::ClassMethods.send :include,
-                                             Carrierwave::Base64::Adapter
+        Mongoid::Document::ClassMethods.include Carrierwave::Base64::Adapter
       end
     end
   end
