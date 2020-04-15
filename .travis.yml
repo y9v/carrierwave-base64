@@ -1,10 +1,10 @@
 language: ruby
 
 rvm:
- - 2.2.10
- - 2.3.8
- - 2.4.5
- - 2.5.2
+ - 2.4.9
+ - 2.5.7
+ - 2.6.5
+ - 2.7.0
  - ruby-head
  - jruby-head
 
@@ -19,5 +19,6 @@ gemfile:
 sudo: false
 
 script:
+  - gem install bundler
   - bundle exec rspec
   - bundle exec rubocop
