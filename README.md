@@ -32,7 +32,7 @@ Mount the uploader to your model:
 mount_base64_uploader :image, ImageUploader
 ```
 
-Now you can also upload files by passing an encoded base64 string to the attribute.
+Now you can also upload files by passing an encoded base64 string to the attribute. This also works for normal file uploads from file fields inside an HTML form, so you can safely replace `mount_uploader` with `mount_base64_uploader` to support both file input and base64 encoded input
 
 ## Upload file extension
 
