@@ -31,12 +31,13 @@ module Carrierwave
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?('(null)')
 
+        bytes = ::Base64.decode64 encoded_bytes
+
         if use_extension_from_file_name
           @file_name = file_name.split('.')[0..-2].join('.')
           @file_extension = file_name.split('.').last
         else
           @file_name = file_name
-          bytes = ::Base64.decode64 encoded_bytes
           @file_extension = get_file_extension description, bytes
         end
 

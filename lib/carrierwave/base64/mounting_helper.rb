@@ -52,9 +52,12 @@ module Carrierwave
           return super(data) unless data.is_a?(String) &&
                                     data.strip.start_with?('data')
 
+          use_extension_from_file_name = options.fetch(:use_extension_from_file_name, false)
+
           super Carrierwave::Base64::Base64StringIO.new(
             data.strip,
-            Carrierwave::Base64::MountingHelper.file_name(self, options)
+            Carrierwave::Base64::MountingHelper.file_name(self, options),
+            use_extension_from_file_name
           )
         end
       end
