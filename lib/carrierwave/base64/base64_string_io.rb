@@ -19,19 +19,26 @@ module Carrierwave
       #
       # @param encoded_file [String] the base64 encoded file contents
       # @param file_name [String] the file name without extention
+      # @param use_extension_from_file_name [Boolean] If true, we will not try to infer the file extension from the 
+      #                                     bytes or from the description.
       #
       # @raise [ArgumentError] If the base64 encoded string is empty
       #
       # @return [StringIO] StringIO with decoded bytes
-      def initialize(encoded_file, file_name)
+      def initialize(encoded_file, file_name, use_extension_from_file_name = false)
         description, encoded_bytes = encoded_file.split(',')
 
         raise ArgumentError unless encoded_bytes
         raise ArgumentError if encoded_bytes.eql?('(null)')
 
-        @file_name = file_name
-        bytes = ::Base64.decode64 encoded_bytes
-        @file_extension = get_file_extension description, bytes
+        if use_extension_from_file_name
+          @file_name = file_name.split('.')[0..-2].join('.')
+          @file_extension = file_name.split('.').last
+        else
+          @file_name = file_name
+          bytes = ::Base64.decode64 encoded_bytes
+          @file_extension = get_file_extension description, bytes
+        end
 
         super bytes
       end
