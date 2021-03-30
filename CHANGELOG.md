@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.10.0
+
+ - Allow `mount_base64_uploader` to take a block as an argument (#83, @shuuuuun)
+
 ## 2.9.0
 
  - Mimemagic gem is replaced with Marcel (#87, @oakbow)
