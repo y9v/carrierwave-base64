@@ -17,9 +17,16 @@ module Carrierwave
       #   mount_base64_uploader :image, ImageUploader,
       #     file_name: -> (u) { u.username }
       #
+      # @example Mount the uploader with a block, overriding the store_dir
+      #   mount_base64_uploader :image, ImageUploader do
+      #     def store_dir
+      #       'images'
+      #     end
+      #   end
+      #
       # @return [Symbol] the defined writer method name
-      def mount_base64_uploader(attribute, uploader_class, options = {})
-        mount_uploader attribute, uploader_class, options
+      def mount_base64_uploader(attribute, uploader_class, options = {}, &block)
+        mount_uploader attribute, uploader_class, options, &block
         options[:file_name] ||= proc { attribute }
 
         Carrierwave::Base64::MountingHelper.check_for_deprecations(options)

@@ -170,5 +170,24 @@ RSpec.describe Carrierwave::Base64::Adapter do
         expect { subject.update!(username: 'new-username') }.not_to raise_error
       end
     end
+
+    context 'models with a block for the uploader' do
+      subject do
+        User.mount_base64_uploader(:image, uploader) do
+          def monkey
+            'blah'
+          end
+        end
+        User.new
+      end
+
+      it 'should return an instance of a subclass of CarrierWave::Uploader::Base' do
+        expect(subject.image).to be_a(CarrierWave::Uploader::Base)
+      end
+
+      it 'should apply any custom modifications' do
+        expect(subject.image.monkey).to eq('blah')
+      end
+    end
   end
 end
