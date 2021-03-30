@@ -1,5 +1,4 @@
-require 'mimemagic'
-require 'mimemagic/overlay'
+require 'marcel'
 
 module Carrierwave
   module Base64
