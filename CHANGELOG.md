@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.9.0
+
+ - Mimemagic gem is replaced with Marcel (#87, @oakbow)
+
 ## 2.8.0
 
  - Mime Type is now detected from file contents, falling back to the type, specified by the user. (#73, @justisb)
