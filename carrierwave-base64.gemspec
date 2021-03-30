@@ -19,9 +19,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'carrierwave', '>= 0.8.0'
+  spec.add_dependency 'carrierwave', '>= 2.2.1'
   spec.add_dependency 'mime-types', '~> 3.0'
-  spec.add_dependency 'mimemagic', '~> 0.3.2'
+  spec.add_dependency 'marcel', '~> 1.0.0'
 
   spec.add_development_dependency 'bundler', '~> 2.1'
   spec.add_development_dependency 'carrierwave-mongoid'
