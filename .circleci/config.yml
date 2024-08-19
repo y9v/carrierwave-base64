@@ -15,8 +15,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Which bundler?
-          command: bundle -v
+          name: install dependencies
+          command: |
+            gem update --system
+            gem install bundler
       - ruby/install-deps
       - run:
           name: Tests
