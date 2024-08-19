@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require 'pry'
 require 'sham_rack'
 
 require 'rails'
