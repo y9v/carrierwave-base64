@@ -5,8 +5,12 @@ orbs:
 
 jobs:
   build:
+    parameters:
+      ruby_version:
+        type: string
+
     docker:
-      - image: cimg/ruby:<< matrix.ruby_version >>
+      - image: cimg/ruby:<< parameters.ruby_version >>
 
     steps:
       - checkout
