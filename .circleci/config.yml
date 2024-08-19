@@ -15,11 +15,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             gem update --system
             gem install bundler
-      - ruby/install-deps
+            bundle install
       - run:
           name: Tests
           command: bundle exec rspec
