@@ -43,14 +43,14 @@ module Carrierwave
       def define_writer(klass, attr, options)
         klass.send(:define_method, "#{attr}=") do |data|
           # rubocop:disable Lint/NonLocalExitFromIterator
-          return if data.to_s.empty? || data == send(attr).to_s
-
+          return if data == send(attr).to_s
           # rubocop:enable Lint/NonLocalExitFromIterator
 
           send("#{attr}_will_change!") if respond_to?("#{attr}_will_change!")
 
-          return super(data) unless data.is_a?(String) &&
-                                    data.strip.start_with?('data')
+          return send("remove_#{attr}=", true) if data.to_s.strip == ''
+
+          return super(data) unless data.is_a?(String) && data.strip.start_with?('data')
 
           super Carrierwave::Base64::Base64StringIO.new(
             data.strip,

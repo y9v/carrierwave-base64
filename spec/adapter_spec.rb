@@ -149,6 +149,12 @@ RSpec.describe Carrierwave::Base64::Adapter do
           subject.save!
           expect(subject.image.file).to be_nil
         end
+
+        it 'removes files when setting the attribute to nil' do
+          subject.image = nil
+          subject.save!
+          expect(subject.image.file).to be_nil
+        end
       end
     end
 
