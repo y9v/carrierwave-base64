@@ -23,7 +23,7 @@ RSpec.describe Carrierwave::Base64::Base64StringIO do
       end
 
       it 'calls a function that returns the file_name' do
-        method = ->(u) { u.username }
+        method = :username.to_proc
         base64_string_io = described_class.new(
           data, method.curry[User.new(username: 'batman')]
         )

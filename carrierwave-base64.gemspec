@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'carrierwave', '>= 2.2.1'
-  spec.add_dependency 'mime-types', '~> 3.0'
   spec.add_dependency 'marcel', '~> 1.0.0'
+  spec.add_dependency 'mime-types', '~> 3.0'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'carrierwave-mongoid'

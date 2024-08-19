@@ -40,9 +40,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
 
     context 'models with file_name options for the uploader' do
       subject do
-        User.mount_base64_uploader(
-          :image, uploader, file_name: ->(u) { u.username }
-        )
+        User.mount_base64_uploader(:image, uploader, file_name: :username.to_proc)
         User.new(username: 'batman')
       end
 
@@ -63,9 +61,7 @@ RSpec.describe Carrierwave::Base64::Adapter do
       context 'when file_name is a proc' do
         it 'does NOT issue a deprecation warning' do
           expect do
-            User.mount_base64_uploader(
-              :image, uploader, file_name: ->(u) { u.username }
-            )
+            User.mount_base64_uploader(:image, uploader, file_name: :username.to_proc)
           end.not_to warn('Deprecation')
         end
       end
