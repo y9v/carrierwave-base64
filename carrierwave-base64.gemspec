@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'mime-types', '~> 3.0'
 
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'carrierwave-mongoid'
+  spec.add_development_dependency 'carrierwave-mongoid', '~> 1.4.0'
   spec.add_development_dependency 'mongoid'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rails'
