@@ -1,5 +1,9 @@
 # carrierwave-base64 changelog
 
+## 2.11.0
+
+ - Add ability to remove upload by assigning nil value to the field
+
 ## 2.10.0
 
  - Allow `mount_base64_uploader` to take a block as an argument (#83, @shuuuuun)
