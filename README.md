@@ -56,13 +56,9 @@ You can set the `file_name` option to a lambda, that will return a filename with
 mount_base64_uploader :image, ImageUploader, file_name: -> (u) { u.username }
 ```
 
-**[DEPRECATED: Settings this option to a string is deprecated, if you still want to set the filename to a fixed string, wrap it in a Proc]** To set the file name for the uploaded files, use the `:file_name` option (without extention):
+If you still want to set the filename to a fixed string, wrap it in a Proc:
 
 ```ruby
-# Deprecated way:
-mount_base64_uploader :image, ImageUploader, file_name: 'userpic'
-
-# New way
 mount_base64_uploader :image, ImageUploader, file_name: -> { 'userpic' }
 ```
 

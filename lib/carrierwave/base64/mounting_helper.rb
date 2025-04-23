@@ -10,7 +10,7 @@ module Carrierwave
       # @param options [Hash{Symbol => Object}] the uploader options
       # @return [void]
       def check_for_deprecations(options)
-        return unless options[:file_name].is_a?(String)
+        return if options[:file_name].is_a?(Proc)
 
         warn(
           '[Deprecation warning] Setting `file_name` option to a string is '\
@@ -26,11 +26,7 @@ module Carrierwave
       # @param options [Hash{Symbol => Object}] the uploader options
       # @return [String] File name without extension
       def file_name(model_instance, options)
-        if options[:file_name].respond_to?(:call)
-          options[:file_name].call(model_instance)
-        else
-          options[:file_name]
-        end.to_s
+        options[:file_name].call(model_instance).to_s
       end
 
       # Defines an attribute writer method on the class with mounted uploader.
