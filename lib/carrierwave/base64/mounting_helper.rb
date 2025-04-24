@@ -4,21 +4,6 @@ module Carrierwave
     module MountingHelper
       module_function
 
-      # Checks for deprecations and prints a warning if found any.
-      # @private
-      #
-      # @param options [Hash{Symbol => Object}] the uploader options
-      # @return [void]
-      def check_for_deprecations(options)
-        return if options[:file_name].is_a?(Proc)
-
-        warn(
-          '[Deprecation warning] Setting `file_name` option to a string is '\
-          'deprecated and will be removed in 3.0.0. If you want to keep the '\
-          'existing behaviour, wrap the string in a Proc'
-        )
-      end
-
       # Returns a file name for the uploaded file.
       # @private
       #
