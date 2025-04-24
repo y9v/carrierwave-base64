@@ -48,24 +48,6 @@ RSpec.describe Carrierwave::Base64::Adapter do
         expect(subject.image).to be_an_instance_of(uploader)
       end
 
-      context 'when file_name is a string' do
-        it 'issues a deprecation warning' do
-          expect do
-            User.mount_base64_uploader(
-              :image, uploader, file_name: 'file_name'
-            )
-          end.to warn('Deprecation')
-        end
-      end
-
-      context 'when file_name is a proc' do
-        it 'does NOT issue a deprecation warning' do
-          expect do
-            User.mount_base64_uploader(:image, uploader, file_name: :username.to_proc)
-          end.not_to warn('Deprecation')
-        end
-      end
-
       context 'normal file uploads' do
         before(:each) do
           sham_rack_app = ShamRack.at('www.example.com').stub

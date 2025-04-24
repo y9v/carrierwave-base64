@@ -4,21 +4,6 @@ module Carrierwave
     module MountingHelper
       module_function
 
-      # Checks for deprecations and prints a warning if found any.
-      # @private
-      #
-      # @param options [Hash{Symbol => Object}] the uploader options
-      # @return [void]
-      def check_for_deprecations(options)
-        return unless options[:file_name].is_a?(String)
-
-        warn(
-          '[Deprecation warning] Setting `file_name` option to a string is '\
-          'deprecated and will be removed in 3.0.0. If you want to keep the '\
-          'existing behaviour, wrap the string in a Proc'
-        )
-      end
-
       # Returns a file name for the uploaded file.
       # @private
       #
@@ -26,11 +11,7 @@ module Carrierwave
       # @param options [Hash{Symbol => Object}] the uploader options
       # @return [String] File name without extension
       def file_name(model_instance, options)
-        if options[:file_name].respond_to?(:call)
-          options[:file_name].call(model_instance)
-        else
-          options[:file_name]
-        end.to_s
+        options[:file_name].call(model_instance).to_s
       end
 
       # Defines an attribute writer method on the class with mounted uploader.
